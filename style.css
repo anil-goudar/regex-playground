@@ -98,8 +98,10 @@
 
   .success {
     color: #27F549;
+    font-weight: bold;
   }
 
   .error {
-    color: #F54927
+    color: #F54927;
+    font-weight: bold;
   }

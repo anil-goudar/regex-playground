@@ -3,13 +3,14 @@ const inputTextArea = document.getElementById('inputText');
 const resultDiv = document.getElementById('result');
 
 const regexMap = {
-    email: ''
+    email: '^[a-z_0-9]+@[a-z]+\.[a-z]+\.*[a-z]*$'
 };
 
 function testRegex(pattern) {
     try {
         const regex = new RegExp(pattern);
-        if (regex.test(inputTextArea.textContent)) {
+        const testString = inputTextArea.value.trim();
+        if (regex.test(testString)) {
             resultDiv.classList.add('success');
             resultDiv.innerText = 'Success';
         } else {
@@ -24,14 +25,17 @@ function testRegex(pattern) {
 
 button.addEventListener('click', function() {
     const currentRegexType = document.querySelector('input[name="regexType"]:checked');
-
-    switch(currentRegexType) {
-        case 'email': break;
+    if (!currentRegexType) {
+        return;
+    }
+    switch(currentRegexType.value) {
+        case 'email': testRegex(regexMap.email); break;
         default: break;
     }
 });
 
-inputTextArea.addEventListener('change', function() {
+inputTextArea.addEventListener('input', function() {
+    resultDiv.innerText = '';
     resultDiv.classList.remove('success');
     resultDiv.classList.remove('error');
 })
